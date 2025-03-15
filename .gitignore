@@ -1,0 +1,5 @@
+# Ignore credential files
+credentials.json
+
+# Ignore .env file containing credentials
+.env
