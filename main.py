@@ -4,8 +4,8 @@ from ocr.document_ai import DocumentOCR
 from ocr.preprocess import preprocess_image
 from ocr.extract import extract_nutritional_info
 
-PROJECT_ID = "your-google-cloud-project-id"
-PROCESSOR_ID = "your-document-ai-processor-id"
+PROJECT_ID = os.getenv("PROJECT_ID")
+PROCESSOR_ID = os.getenv("PROCESSOR_ID")
 
 st.title("🥗 Food Label OCR Scanner")
 
@@ -23,10 +23,10 @@ if uploaded_file:
 
     # Perform OCR
     ocr = DocumentOCR(PROJECT_ID, PROCESSOR_ID)
-    extracted_text = ocr.process_document(processed_image_path)
+    extracted_data = ocr.process_document(processed_image_path)
 
     # Extract nutritional information
-    nutrition_info = extract_nutritional_info(extracted_text)
+    nutrition_info = extract_nutritional_info(extracted_data)
 
     # Display extracted information
     st.subheader("Extracted Nutritional Information")

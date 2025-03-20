@@ -1,23 +1,12 @@
-import re
-
-def extract_nutritional_info(text):
-    nutrition_data = {
-        "Calories": None,
-        "Added Sugar": None,
-        "Natural Sugar": None,
-        "Carbohydrates": None
+def extract_nutritional_info(ocr_data):
+    """
+    Processes structured OCR data to return extracted nutritional information.
+    """
+    nutrition_info = {
+        "Protein": ocr_data.get("Protein", "Not Found"),
+        "Carbohydrate": ocr_data.get("Carbohydrate", "Not Found"),
+        "Total Sugar": ocr_data.get("Total Sugar", "Not Found"),
+        "Added Sugar": ocr_data.get("Added Sugar", "Not Found"),
+        "Sodium": ocr_data.get("Sodium", "Not Found"),
     }
-
-    patterns = {
-        "Calories": r"(\d+)\s*calories",
-        "Added Sugar": r"(\d+)\s*g\s*added sugar",
-        "Natural Sugar": r"(\d+)\s*g\s*natural sugar",
-        "Carbohydrates": r"(\d+)\s*g\s*carbohydrates"
-    }
-
-    for key, pattern in patterns.items():
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            nutrition_data[key] = match.group(1)
-
-    return nutrition_data
+    return nutrition_info
